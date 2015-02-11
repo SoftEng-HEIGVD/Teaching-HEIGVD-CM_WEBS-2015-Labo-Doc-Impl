@@ -1,0 +1,611 @@
+#%RAML 0.8
+---
+title: API Resource
+baseUri: https://localhost/api/
+protocols: [HTTPS]
+mediaType: application/json
+
+traits:
+  - pagination: !include _traits/pagination.raml
+  - sorting: !include _traits/sorting.raml
+  - auth: !include _traits/auth.raml
+
+/users:
+  description: User resource.
+  get:
+    is: [pagination, sorting, auth: { roles: 'staff' }]
+    description: Retrive the list of the users.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id": "54d8ae163fd30364605c81a4",
+                  "firstname": "Romain",
+                  "lastname": "Terieur",
+                  "phone": "+6624582",
+                  "roles": [
+                    "citizen"
+                  ]
+                },
+                {
+                  "id": "54d8ae163fd30364605c81a9",
+                  "firstname": "Romain",
+                  "lastname": "Terieur",
+                  "phone": "+8211332",
+                  "roles": [
+                    "citizen",
+                    "staff"
+                  ]
+                },
+                ...
+              ]
+  post:
+    description: Create a new user.
+    body:
+      application/json:
+        example: |
+          {
+            "firstname": "Romain",
+            "lastname": "Terieur",
+            "phone": "+6624582",
+            "roles": [
+              "citizen"
+            ]
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "id": "54d8ae163fd30364605c81a4",
+                "firstname": "Romain",
+                "lastname": "Terieur",
+                "phone": "+6624582",
+                "roles": [
+                  "citizen"
+                ]
+              }
+
+  /{id}:
+    get:
+      is: [auth: {roles: 'any'} ]
+      description: Retrieve the details of a specific user.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "54d8ae163fd30364605c81a4",
+                  "firstname": "Romain",
+                  "lastname": "Terieur",
+                  "phone": "+6624582",
+                  "roles": [
+                    "citizen"
+                  ]
+                }
+    put:
+      is: [auth: {roles: 'staff'} ]
+      description: Update the details of a specific user.
+      body:
+        application/json:
+          example: |
+            {
+              "firstname": "Romain",
+              "lastname": "Terieur",
+              "phone": "+6624582",
+              "roles": [
+                "citizen"
+              ]
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "54d8ae163fd30364605c81a4",
+                  "firstname": "Romain",
+                  "lastname": "Terieur",
+                  "phone": "+6624582",
+                  "roles": [
+                    "citizen"
+                  ]
+                }
+    delete:
+      is: [auth: {roles: 'staff'} ]
+      description: Delete a specific user.
+      responses:
+        204:
+          body:
+
+/issues:
+  description: Issue resource.
+  get:
+    is: [pagination, sorting, auth: { roles: 'any' }]
+    description: Retrieve the list of issues.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [ {
+                "id": "54d8ae183fd30364605c8401",
+                "description": "Integer at metus vitae erat porta pellentesque.",
+                "lng": "6.651479812689227",
+                "lat": "46.77227088657382",
+                "state": "in_progress",
+                "issueType": {
+                  "id": "54d8ae183fd30364605c81b1",
+                  "name": "broken streetlight",
+                  "description": "Light is broken"
+                },
+                "owner": {
+                  "id": ObjectId("54d8ae163fd30364605c81a3"),
+                  "firstname": "Henri",
+                  "lastname": "Dutoit",
+                  "phone": "+7628385"
+                },
+                "assignee": {
+                  "id": ObjectId("54d8ae163fd30364605c81a3"),
+                  "firstname": "Henri",
+                  "lastname": "Dutoit",
+                  "phone": "+7628385"
+                },
+                "comments": [
+                  {
+                    "id": "54d8ae183fd30364605c81b4",
+                    "author": {
+                      "id": ObjectId("54d8ae163fd30364605c81a3"),
+                      "firstname": "Henri",
+                      "lastname": "Dutoit",
+                      "phone": "+7628385"
+                    },
+                    "text": "Sed id ligula semper, auctor metus et, mattis tortor.",
+                    "postedOn": "2015-06-30T07:05:10.338Z"
+                  }, ...
+                ],
+                "updatedOn": 2015-06-30T06:05:10.338Z,
+                "tags": [
+                  "Non",
+                  "Posuere",
+                  "Quam",
+                  "Proin"
+                ]
+              },
+              ...]
+  post:
+    is: [ auth: { roles: 'citizen' }]
+    description: Create a new issue. The owner of the issue is the authenticated user.
+    body:
+      application/json:
+        example: |
+          {
+            "description": "Integer at metus vitae erat porta pellentesque.",
+            "lng": "6.651479812689227",
+            "lat": "46.77227088657382",
+            "issueType": "54d8ae183fd30364605c81b1"
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "id": "54d8ae183fd30364605c8401",
+                "description": "Integer at metus vitae erat porta pellentesque.",
+                "lng": "6.651479812689227",
+                "lat": "46.77227088657382",
+                "state": "created",
+                "issueType": {
+                  "id": "54d8ae183fd30364605c81b1",
+                  "name": "broken streetlight",
+                  "description": "Light is broken"
+                },
+                "owner": {
+                  "id": ObjectId("54d8ae163fd30364605c81a3"),
+                  "firstname": "Henri",
+                  "lastname": "Dutoit",
+                  "phone": "+7628385"
+                },
+                "assignee": null,
+                "comments": [ ],
+                "updatedOn": 2015-06-30T06:05:10.338Z,
+                "tags": [ ]
+              }
+
+  /search:
+    post:
+      is: [pagination, sorting, auth: { roles: 'any' }]
+      description: Perform MongoDB queries directly by given the query through the JSON payload. Refers to the MongoDB query. Queries are limited to the issues only.
+      body:
+        application/json:
+          example: |
+            {
+              "_issueType": "54d8ae183fd30364605c81b1"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [ {
+                  "id": "54d8ae183fd30364605c8401",
+                  "description": "Integer at metus vitae erat porta pellentesque.",
+                  "lng": "6.651479812689227",
+                  "lat": "46.77227088657382",
+                  "state": "in_progress",
+                  "issueType": {
+                    "id": "54d8ae183fd30364605c81b1",
+                    "name": "broken streetlight",
+                    "description": "Light is broken"
+                  },
+                  "owner": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "assignee": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "comments": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "author": {
+                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "firstname": "Henri",
+                        "lastname": "Dutoit",
+                        "phone": "+7628385"
+                      },
+                      "text": "Sed id ligula semper, auctor metus et, mattis tortor.",
+                      "postedOn": "2015-06-30T07:05:10.338Z"
+                    }, ...
+                  ],
+                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "tags": [
+                    "Non",
+                    "Posuere",
+                    "Quam",
+                    "Proin"
+                  ]
+                  }
+                },
+                ...]
+
+  /{id}:
+    get:
+      is: [auth: {roles: 'any'} ]
+      description: Retrieve the details of a specific issue.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "54d8ae183fd30364605c8401",
+                  "description": "Integer at metus vitae erat porta pellentesque.",
+                  "lng": "6.651479812689227",
+                  "lat": "46.77227088657382",
+                  "state": "in_progress",
+                  "issueType": {
+                    "id": "54d8ae183fd30364605c81b1",
+                    "name": "broken streetlight",
+                    "description": "Light is broken"
+                  },
+                  "owner": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "assignee": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "comments": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "author": {
+                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "firstname": "Henri",
+                        "lastname": "Dutoit",
+                        "phone": "+7628385"
+                      },
+                      "text": "Sed id ligula semper, auctor metus et, mattis tortor.",
+                      "postedOn": "2015-06-30T07:05:10.338Z"
+                    }, ...
+                  ],
+                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "tags": [
+                    "Non",
+                    "Posuere",
+                    "Quam",
+                    "Proin"
+                  ]
+                }
+    put:
+      is: [auth: {roles: 'staff'} ]
+      description: Update the specific issue.
+      body:
+        application/json:
+          example: |
+           {
+             "description": "New Integer at metus vitae erat porta pellentesque.",
+             "lng": "16.651479812689227",
+             "lat": "46.77227088657382",
+             "issueType": "54d8ae183fd30364605c81b1"
+           }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "54d8ae183fd30364605c8401",
+                  "description": "New Integer at metus vitae erat porta pellentesque.",
+                  "lng": "16.651479812689227",
+                  "lat": "46.77227088657382",
+                  "state": "in_progress",
+                  "issueType": {
+                    "id": "54d8ae183fd30364605c81b1",
+                    "name": "broken streetlight",
+                    "description": "Light is broken"
+                  },
+                  "owner": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "assignee": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "comments": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "author": {
+                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "firstname": "Henri",
+                        "lastname": "Dutoit",
+                        "phone": "+7628385"
+                      },
+                      "text": "Sed id ligula semper, auctor metus et, mattis tortor.",
+                      "postedOn": "2015-06-30T07:05:10.338Z"
+                    }, ...
+                  ],
+                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "tags": [
+                    "Non",
+                    "Posuere",
+                    "Quam",
+                    "Proin"
+                  ]
+                }
+    delete:
+      is: [auth: {roles: 'staff'} ]
+      description: Delete a specific issue.
+      responses:
+        204:
+          body:
+
+    /actions:
+      post:
+        is: [auth: {roles: 'various'} ]
+        description: |
+          Perform an action on the issue.
+
+          Depending on the action, different roles may apply. They are specified for each actions
+
+          There are three different type of actions:
+
+          * `comments` actions related to the comments
+          * `tags` actions relateed to the tags
+          * `states` actions related to the state
+
+          **Comments**:
+
+          * `comment(any)`: Post a new comment on the issue. The authenticated user is the author
+
+          **Tags**:
+
+          * `addTags(any)`: A new tags to an issue (avoid tags duplication)
+          * `removeTags(any)`: Remove tags that are present on the issue
+          * `replaceTags(any)`: Remove all the tags and replaced them by the provided ones
+
+          **States**:
+
+          * `assign(staff)`: Assign the issue to a staff member
+          * `ack(staff)`: Acknowledge an issue
+          * `start(staff)`: Start the work on an issue
+          * `reject(staff)`: Reject an issue
+          * `resolve(staff)`: Resolve an issue
+
+          **Remark**: All assignation automatically change the state of the issue and add a comment.
+        body:
+          application/json:
+            example: |
+              Generic format:
+              {
+                "type": "(comment|addTags|removeTags|replaceTags|assign|ack|start|reject|resolve)",
+                "playload": {
+                  ... // Required parameters for an action
+                }
+              }
+
+              Comments:
+              {
+                "type": "comment",
+                "payload": {
+                  "text": "Wonderful comment"
+                }
+              }
+
+              Tags:
+              {
+                "type": "(addTags|removeTags|replaceTags)",
+                "payload": {
+                  "tags": ["tag1", "tag2", ...]
+                }
+              }
+
+              States:
+              {
+                "type": "(assign|ack|start|reject|resolve)",
+                "payload": {
+                  "comment": "Wonderful additional comment that is optional"
+                }
+              }
+        responses:
+          404:
+            description: Action unknonw
+            body:
+          200:
+            description: Action performed successfully
+            body:
+              example: |
+                {
+                  "id": "54d8ae183fd30364605c8401",
+                  "description": "New Integer at metus vitae erat porta pellentesque.",
+                  "lng": "16.651479812689227",
+                  "lat": "46.77227088657382",
+                  "state": "in_progress",
+                  "issueType": {
+                    "id": "54d8ae183fd30364605c81b1",
+                    "name": "broken streetlight",
+                    "description": "Light is broken"
+                  },
+                  "owner": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "assignee": {
+                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "comments": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "author": {
+                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "firstname": "Henri",
+                        "lastname": "Dutoit",
+                        "phone": "+7628385"
+                      },
+                      "text": "Sed id ligula semper, auctor metus et, mattis tortor.",
+                      "postedOn": "2015-06-30T07:05:10.338Z"
+                    }, ...
+                  ],
+                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "tags": [
+                    "Non",
+                    "Posuere",
+                    "Quam",
+                    "Proin"
+                  ]
+                }
+
+/issueTypes:
+  description: Issue type resource.
+  get:
+    is: [pagination, sorting, auth: { roles: 'any' }]
+    description: Retrieve the list of issue types.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [ {
+                "id": "54d8ae183fd30364605c81b1",
+                "name": "broken streetlight",
+                "description": "Light is broken",
+              },
+              ...]
+  post:
+    is: [ auth: { roles: 'staff' }]
+    description: Create a new issue type.
+    body:
+      application/json:
+        example: |
+          {
+            "name": "broken streetlight",
+            "description": "Light is broken",
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "id": "54d8ae183fd30364605c81b1",
+                "name": "broken streetlight",
+                "description": "Light is broken",
+              }
+
+  /{id}:
+    get:
+      is: [auth: {roles: 'any'} ]
+      description: Retrieve the details of a specific issue type.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "54d8ae183fd30364605c81b1",
+                  "name": "broken streetlight",
+                  "description": "Light is broken",
+                }
+    put:
+      is: [auth: {roles: 'staff'} ]
+      description: Update the specific issue type.
+      body:
+        application/json:
+          example: |
+            {
+              "id": "54d8ae183fd30364605c81b1",
+              "name": "whoops! broken streetlight",
+              "description": "Light is broken",
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "54d8ae183fd30364605c81b1",
+                  "name": "whoops! broken streetlight",
+                  "description": "Light is broken",
+                }
+
+    delete:
+      is: [auth: {roles: 'staff'} ]
+      description: Delete a specific issue type.
+      responses:
+        204:
+          body:
+
+/data:
+  description: Data resource.
+  /populate:
+    post:
+      description: Allow to populate random data to have a starting situation.
+      responses:
+        200:
+          body:
