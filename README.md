@@ -29,6 +29,12 @@ plain `.md` files that are compiled independently from the API documentation.
   4. Run the dev server: `grunt dev --private=true`
   5. Open a browser at [`http://localhost:7000/`](http://localhost:7000/)
 
+## Deployment on Heroku
+
+Basically, you have nothing special to do. Follow the instruction of Heroku to setup your computer ready to use their
+service. Then, you have just to push your code on Heroku after created the application on Heroku. That's it. The doc
+application is already configured to be deployed easily.
+
 ## Credits
 
 To [APIDoc Seed](https://github.com/lotaris/apidoc-seed).
