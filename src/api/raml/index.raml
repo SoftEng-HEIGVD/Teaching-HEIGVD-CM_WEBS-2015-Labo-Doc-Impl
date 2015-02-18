@@ -169,7 +169,16 @@ traits:
                     "postedOn": "2015-06-30T07:05:10.338Z"
                   }, ...
                 ],
-                "updatedOn": 2015-06-30T06:05:10.338Z,
+                "actions": [
+                  {
+                    "id": "54d8ae183fd30364605c81b4",
+                    "user": "Alain Terieur",
+                    "actionDate": "2015-06-30T06:05:10.338Z",
+                    "actionType": "addComment",
+                    "reason": "Posted a new comment."
+                  }, ...
+                ],
+                "updatedOn": "2015-06-30T06:05:10.338Z",
                 "tags": [
                   "Non",
                   "Posuere",
@@ -213,9 +222,10 @@ traits:
                   "phone": "+7628385"
                 },
                 "assignee": null,
-                "comments": [ ],
-                "updatedOn": 2015-06-30T06:05:10.338Z,
-                "tags": [ ]
+                "comments": [ ... ],
+                "actions": [ ... ],
+                "updatedOn": "2015-06-30T06:05:10.338Z",
+                "tags": [ ... ]
               }
 
   /search:
@@ -269,7 +279,16 @@ traits:
                       "postedOn": "2015-06-30T07:05:10.338Z"
                     }, ...
                   ],
-                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "actions": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "user": "Alain Terieur",
+                      "actionDate": "2015-06-30T06:05:10.338Z",
+                      "actionType": "addComment",
+                      "reason": "Posted a new comment."
+                    }, ...
+                  ],
+                  "updatedOn": "2015-06-30T06:05:10.338Z",
                   "tags": [
                     "Non",
                     "Posuere",
@@ -325,7 +344,16 @@ traits:
                       "postedOn": "2015-06-30T07:05:10.338Z"
                     }, ...
                   ],
-                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "actions": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "user": "Alain Terieur",
+                      "actionDate": "2015-06-30T06:05:10.338Z",
+                      "actionType": "addComment",
+                      "reason": "Posted a new comment."
+                    }, ...
+                  ],
+                  "updatedOn": "2015-06-30T06:05:10.338Z",
                   "tags": [
                     "Non",
                     "Posuere",
@@ -386,7 +414,16 @@ traits:
                       "postedOn": "2015-06-30T07:05:10.338Z"
                     }, ...
                   ],
-                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "actions": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "user": "Alain Terieur",
+                      "actionDate": "2015-06-30T06:05:10.338Z",
+                      "actionType": "addComment",
+                      "reason": "Posted a new comment."
+                    }, ...
+                  ],
+                  "updatedOn": "2015-06-30T06:05:10.338Z",
                   "tags": [
                     "Non",
                     "Posuere",
@@ -512,7 +549,16 @@ traits:
                       "postedOn": "2015-06-30T07:05:10.338Z"
                     }, ...
                   ],
-                  "updatedOn": 2015-06-30T06:05:10.338Z,
+                  "actions": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "user": "Alain Terieur",
+                      "actionDate": "2015-06-30T06:05:10.338Z",
+                      "actionType": "addComment",
+                      "reason": "Posted a new comment."
+                    }, ...
+                  ],
+                  "updatedOn": "2015-06-30T06:05:10.338Z",
                   "tags": [
                     "Non",
                     "Posuere",
@@ -600,6 +646,28 @@ traits:
       responses:
         204:
           body:
+
+/actions:
+  description: Action resource.
+  get:
+    is: [pagination, sorting, auth: { roles: 'staff' }]
+    description: Retrieve the list of all actions present in the system
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id": "54d8ae183fd30364605c81b4",
+                  "issueId": "54d8ae183fd30364605c81b5",
+                  "user": "Alain Terieur",
+                  "actionDate": "2015-06-30T06:05:10.338Z",
+                  "actionType": "addComment",
+                  "reason": "Posted a new comment."
+                },
+                ...
+              ]
 
 /data:
   description: Data resource.
