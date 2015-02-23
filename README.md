@@ -14,6 +14,10 @@ static site. The following [Node.js][node] stack is used:
 Note that apart from Markdown support within the RAML spec it also supports
 plain `.md` files that are compiled independently from the API documentation.
 
+## Doc on Heroku
+
+https://polar-brook-7624.herokuapp.com
+
 ## Quickstart
 
 ### Prerequisites
