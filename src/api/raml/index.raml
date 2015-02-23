@@ -145,13 +145,13 @@ traits:
                   "description": "Light is broken"
                 },
                 "owner": {
-                  "id": ObjectId("54d8ae163fd30364605c81a3"),
+                  "id": "54d8ae163fd30364605c81a3",
                   "firstname": "Henri",
                   "lastname": "Dutoit",
                   "phone": "+7628385"
                 },
                 "assignee": {
-                  "id": ObjectId("54d8ae163fd30364605c81a3"),
+                  "id": "54d8ae163fd30364605c81a3",
                   "firstname": "Henri",
                   "lastname": "Dutoit",
                   "phone": "+7628385"
@@ -160,7 +160,7 @@ traits:
                   {
                     "id": "54d8ae183fd30364605c81b4",
                     "author": {
-                      "id": ObjectId("54d8ae163fd30364605c81a3"),
+                      "id": "54d8ae163fd30364605c81a3",
                       "firstname": "Henri",
                       "lastname": "Dutoit",
                       "phone": "+7628385"
@@ -216,7 +216,7 @@ traits:
                   "description": "Light is broken"
                 },
                 "owner": {
-                  "id": ObjectId("54d8ae163fd30364605c81a3"),
+                  "id": "54d8ae163fd30364605c81a3",
                   "firstname": "Henri",
                   "lastname": "Dutoit",
                   "phone": "+7628385"
@@ -255,13 +255,13 @@ traits:
                     "description": "Light is broken"
                   },
                   "owner": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
                   },
                   "assignee": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
@@ -270,7 +270,7 @@ traits:
                     {
                       "id": "54d8ae183fd30364605c81b4",
                       "author": {
-                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "id": "54d8ae163fd30364605c81a3",
                         "firstname": "Henri",
                         "lastname": "Dutoit",
                         "phone": "+7628385"
@@ -320,13 +320,13 @@ traits:
                     "description": "Light is broken"
                   },
                   "owner": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
                   },
                   "assignee": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
@@ -335,7 +335,7 @@ traits:
                     {
                       "id": "54d8ae183fd30364605c81b4",
                       "author": {
-                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "id": "54d8ae163fd30364605c81a3",
                         "firstname": "Henri",
                         "lastname": "Dutoit",
                         "phone": "+7628385"
@@ -390,13 +390,13 @@ traits:
                     "description": "Light is broken"
                   },
                   "owner": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
                   },
                   "assignee": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
@@ -405,7 +405,7 @@ traits:
                     {
                       "id": "54d8ae183fd30364605c81b4",
                       "author": {
-                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "id": "54d8ae163fd30364605c81a3",
                         "firstname": "Henri",
                         "lastname": "Dutoit",
                         "phone": "+7628385"
@@ -439,6 +439,25 @@ traits:
           body:
 
     /actions:
+      get:
+        is: [auth: {roles: 'staff'} ]
+        description: |
+          Retrieve the list of actions for the specific issue
+        body:
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  [
+                    {
+                      "id": "54eb2bc0b0f01ef11e6c6b06",
+                      "type": "removeTags",
+                      "user": "Alfred Dupont",
+                      "actionDate": "2015-02-23T13:31:44.911Z",
+                      "reason": "Pellentesque iaculis ante vestibulum dolor finibus hendrerit."
+                    } ...
+                  ]
       post:
         is: [auth: {roles: 'various'} ]
         description: |
@@ -525,13 +544,13 @@ traits:
                     "description": "Light is broken"
                   },
                   "owner": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
                   },
                   "assignee": {
-                    "id": ObjectId("54d8ae163fd30364605c81a3"),
+                    "id": "54d8ae163fd30364605c81a3",
                     "firstname": "Henri",
                     "lastname": "Dutoit",
                     "phone": "+7628385"
@@ -540,7 +559,7 @@ traits:
                     {
                       "id": "54d8ae183fd30364605c81b4",
                       "author": {
-                        "id": ObjectId("54d8ae163fd30364605c81a3"),
+                        "id": "54d8ae163fd30364605c81a3",
                         "firstname": "Henri",
                         "lastname": "Dutoit",
                         "phone": "+7628385"
