@@ -162,6 +162,69 @@ traits:
                   "userId": "54d8ae163fd30364605c81a4",
                 }
 
+/me:
+  description: Allows doing interaction on himself when x-user-id is provided for the authentication
+  /issues:
+    description: Retrieve the list of issues from himself
+    get:
+      is: [pagination, sorting, auth: { roles: 'any' }]
+      description: Retrieve the list of issues.
+      responses:
+        200:
+          body:
+            description: The owner is not present in the resource representation because we know that we are the owner.
+            application/json:
+              example: |
+                [ {
+                  "id": "54d8ae183fd30364605c8401",
+                  "description": "Integer at metus vitae erat porta pellentesque.",
+                  "lng": "6.651479812689227",
+                  "lat": "46.77227088657382",
+                  "imageUrl": "http://www.somewhere.localhost.localdomain",
+                  "state": "in_progress",
+                  "issueType": {
+                    "id": "54d8ae183fd30364605c81b1",
+                    "name": "broken streetlight",
+                    "description": "Light is broken"
+                  },
+                  "assignee": {
+                    "id": "54d8ae163fd30364605c81a3",
+                    "firstname": "Henri",
+                    "lastname": "Dutoit",
+                    "phone": "+7628385"
+                  },
+                  "comments": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "author": {
+                        "id": "54d8ae163fd30364605c81a3",
+                        "firstname": "Henri",
+                        "lastname": "Dutoit",
+                        "phone": "+7628385"
+                      },
+                      "text": "Sed id ligula semper, auctor metus et, mattis tortor.",
+                      "postedOn": "2015-06-30T07:05:10.338Z"
+                    }, ...
+                  ],
+                  "actions": [
+                    {
+                      "id": "54d8ae183fd30364605c81b4",
+                      "user": "Alain Terieur",
+                      "actionDate": "2015-06-30T06:05:10.338Z",
+                      "actionType": "addComment",
+                      "reason": "Posted a new comment."
+                    }, ...
+                  ],
+                  "updatedOn": "2015-06-30T06:05:10.338Z",
+                  "tags": [
+                    "Non",
+                    "Posuere",
+                    "Quam",
+                    "Proin"
+                  ]
+                },
+                ...]
+
 /issues:
   description: Issue resource.
   get:
@@ -177,6 +240,7 @@ traits:
                 "description": "Integer at metus vitae erat porta pellentesque.",
                 "lng": "6.651479812689227",
                 "lat": "46.77227088657382",
+                "imageUrl": "http://www.somewhere.localhost.localdomain",
                 "state": "in_progress",
                 "issueType": {
                   "id": "54d8ae183fd30364605c81b1",
@@ -236,6 +300,7 @@ traits:
             "description": "Integer at metus vitae erat porta pellentesque.",
             "lng": "6.651479812689227",
             "lat": "46.77227088657382",
+            "imageUrl": "http://www.somewhere.localhost.localdomain",
             "issueTypeId": "54d8ae183fd30364605c81b1"
           }
     responses:
@@ -248,6 +313,7 @@ traits:
                 "description": "Integer at metus vitae erat porta pellentesque.",
                 "lng": "6.651479812689227",
                 "lat": "46.77227088657382",
+                "imageUrl": "http://www.somewhere.localhost.localdomain",
                 "state": "created",
                 "issueType": {
                   "id": "54d8ae183fd30364605c81b1",
@@ -287,6 +353,7 @@ traits:
                   "description": "Integer at metus vitae erat porta pellentesque.",
                   "lng": "6.651479812689227",
                   "lat": "46.77227088657382",
+                  "imageUrl": "http://www.somewhere.localhost.localdomain",
                   "state": "in_progress",
                   "issueType": {
                     "id": "54d8ae183fd30364605c81b1",
@@ -352,6 +419,7 @@ traits:
                   "description": "Integer at metus vitae erat porta pellentesque.",
                   "lng": "6.651479812689227",
                   "lat": "46.77227088657382",
+                  "imageUrl": "http://www.somewhere.localhost.localdomain",
                   "state": "in_progress",
                   "issueType": {
                     "id": "54d8ae183fd30364605c81b1",
@@ -410,6 +478,7 @@ traits:
              "description": "New Integer at metus vitae erat porta pellentesque.",
              "lng": "16.651479812689227",
              "lat": "46.77227088657382",
+             "imageUrl": "http://www.somewhere.localhost.localdomain",
              "issueTypeId": "54d8ae183fd30364605c81b1"
            }
       responses:
@@ -422,6 +491,7 @@ traits:
                   "description": "New Integer at metus vitae erat porta pellentesque.",
                   "lng": "16.651479812689227",
                   "lat": "46.77227088657382",
+                  "imageUrl": "http://www.somewhere.localhost.localdomain",
                   "state": "in_progress",
                   "issueType": {
                     "id": "54d8ae183fd30364605c81b1",
@@ -576,6 +646,7 @@ traits:
                   "description": "New Integer at metus vitae erat porta pellentesque.",
                   "lng": "16.651479812689227",
                   "lat": "46.77227088657382",
+                  "imageUrl": "http://www.somewhere.localhost.localdomain",
                   "state": "in_progress",
                   "issueType": {
                     "id": "54d8ae183fd30364605c81b1",
