@@ -171,8 +171,8 @@ traits:
       description: Retrieve the list of issues.
       responses:
         200:
+          description: The owner is not present in the resource representation because we know that we are the owner.
           body:
-            description: The owner is not present in the resource representation because we know that we are the owner.
             application/json:
               example: |
                 [ {
