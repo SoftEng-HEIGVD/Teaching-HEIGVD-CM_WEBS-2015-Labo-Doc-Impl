@@ -69,6 +69,14 @@ traits:
                   "citizen"
                 ]
               }
+      422:
+        description: When the first and last names are already taken.
+        body:
+          application/json:
+            example: |
+              {
+                "message": "First and last names already taken."
+              }
 
   /{id}:
     get:
@@ -116,12 +124,43 @@ traits:
                     "citizen"
                   ]
                 }
+        422:
+          description: When the first and last names are already taken.
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "First and last names already taken."
+                }
     delete:
       is: [auth: {roles: 'staff'} ]
       description: Delete a specific user.
       responses:
         204:
           body:
+
+  /logister
+    post:
+      description: |
+        Try to find a user corresponding to first and last name to retrieve its user id.
+        If the user does not exist, we attempt to create it and then we return its user id.
+        The creation of this user will set the `phone number` to `none` and set a `default role`
+        as `citizen`.
+      body:
+        application/json:
+          example: |
+            {
+              "firstname": "Romain",
+              "lastname": "Terieur",
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "userId": "54d8ae163fd30364605c81a4",
+                }
 
 /issues:
   description: Issue resource.
