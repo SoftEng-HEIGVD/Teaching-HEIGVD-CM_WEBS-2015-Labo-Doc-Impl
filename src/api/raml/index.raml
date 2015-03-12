@@ -340,8 +340,39 @@ traits:
       body:
         application/json:
           example: |
+            // By issue types
             {
               "_issueType": "54d8ae183fd30364605c81b1"
+            }
+
+            // OR by location (manually)
+
+            {
+              "$and": [ {
+                "lat": {
+                  "$gte": 46.766129,
+                  "$lte": 46.784234
+                }
+                }, {
+                  "lng": {
+                    "$gte": 6.622009,
+                    "$lte": 6.651878
+                  }
+                }
+              ]
+            }
+
+            // OR by location via GeoJSON
+
+            {
+              "loc": {
+                "$geoWithin": {
+                  "$centerSphere" : [
+                    [ 6.622009 , 46.766129 ],
+                    0.1
+                  ]
+                }
+              }
             }
       responses:
         200:
