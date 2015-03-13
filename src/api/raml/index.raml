@@ -291,7 +291,7 @@ traits:
               },
               ...]
   post:
-    is: [ auth: { roles: 'citizen' }]
+    is: [ auth: { roles: 'any' }]
     description: Create a new issue. The owner of the issue is the authenticated user.
     body:
       application/json:
