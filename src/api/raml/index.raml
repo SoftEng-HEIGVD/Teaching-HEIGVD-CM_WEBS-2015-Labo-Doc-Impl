@@ -644,9 +644,18 @@ traits:
 
               States:
               {
-                "type": "(assign|ack|start|reject|resolve)",
+                "type": "(ack|start|reject|resolve)",
                 "payload": {
                   "comment": "Wonderful additional comment that is optional"
+                }
+              }
+
+              State assign:
+              {
+                "type": "assign",
+                "payload": {
+                  "assigneeId": "54d8ae183fd30364605c81b4",
+                  "comment" "Wonderful additional comment that is optional"
                 }
               }
         responses:

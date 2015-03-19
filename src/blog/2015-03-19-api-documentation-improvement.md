@@ -1,33 +1,22 @@
 ---
-title: API Correction
-date: 2015-03-16
+title: API Documentation Improvement
+date: 2015-03-19
 author: Laurent
 public: true
 ---
 
-The response format for an `issue` was wrong pretty much in each API path around `/issues`.
+Until now, the `action` `POST` `request` description on `/api/issues/:id/actions` was not precise for the action type `assign`.
 
-The documentation described that the format contains the `owner` or `assignee` name under this format:
+This particular `state` management of the issue requires an `assigneeId`. Therefore, there is the correct format to make an assignment action.
 
-```json
-...
-{
-	"firstname": "Henri",
-	"lastname": "Dupont"
-}
-...
 ```
-
-In fact, the real format is:
-
-```json
-...
 {
-	"name": "Henri Dupont"
+	"type": "assign",
+	"payload": {
+		"assigneeId": "54d8ae183fd30364605c81b4",
+		"comment" "Wonderful additional comment that is optional"
+	}
 }
-...
 ```
-
-The same error was also present for the `author` of a `comment` present in the `issue` responses.
 
 Enjoy!
